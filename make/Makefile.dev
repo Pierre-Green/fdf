@@ -1,0 +1,54 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile.dev                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/02/18 19:17:34 by pguthaus          #+#    #+#              #
+#    Updated: 2019/02/20 19:48:30 by pguthaus         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Sources sets
+include make/sources.mk
+
+# Output name
+NAME			=			fdf_dev
+
+# Compilation
+CC				=			gcc
+CFLAGS			=			-g
+
+# Paths
+SRCDIR			=			./src/
+INCDIR			=			./includes/
+OUTDIR			=			./objs/dev
+
+# Libft
+FT_INC			=			libft/includes
+FT_ARGS			=			-L libft/libft_dev.a
+
+# MLX
+MLX_INC			=			/usr/local/include
+MLX_ARGS		=			-L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+
+# OBJS
+OBJS			=			$(addprefix $(OUTDIR),$(SRCS:.c=.o))
+
+dev: $(NAME)
+
+re: fclean $(NAME)
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_ARGS) $(MLX_ARGS) -o $(NAME)
+
+$(OUTDIR)/%.o: $(SRCDIR)%.c
+	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
+	@$(CC) $(CFLAGS) -I $(INCDIR) -I $(MLX_INC) -o $@ -c $<
+
+clean:
+	@rm -f $(OBJS)
+
+fclean:
+	@rm -rf $(NAME)
