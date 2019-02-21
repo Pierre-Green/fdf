@@ -1,0 +1,11 @@
+%clang
+%c
+
+-Wall
+-Wextra
+-Werror
+
+# Includes
+-Iincludes
+-Ilibft/includes
+-I/usr/local/include

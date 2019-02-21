@@ -6,7 +6,7 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 19:17:34 by pguthaus          #+#    #+#              #
-#    Updated: 2019/02/20 19:48:30 by pguthaus         ###   ########.fr        #
+#    Updated: 2019/02/20 20:23:24 by pguthaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OUTDIR			=			./objs/dev
 
 # Libft
 FT_INC			=			libft/includes
-FT_ARGS			=			-L libft/libft_dev.a
+FT_ARGS			=			libft/libft_dev.a
 
 # MLX
 MLX_INC			=			/usr/local/include
@@ -45,7 +45,7 @@ $(NAME): $(OBJS)
 
 $(OUTDIR)/%.o: $(SRCDIR)%.c
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	@$(CC) $(CFLAGS) -I $(INCDIR) -I $(MLX_INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(INCDIR) -I $(FT_INC) -I $(MLX_INC) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)

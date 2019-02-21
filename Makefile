@@ -6,7 +6,7 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 15:01:06 by pguthaus          #+#    #+#              #
-#    Updated: 2019/02/20 19:49:03 by pguthaus         ###   ########.fr        #
+#    Updated: 2019/02/21 00:58:40 by pguthaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ fclean: clean
 	@echo "Cleaning everything"
 	@$(MAKE) -f $(PRODFILE) fclean
 	@$(MAKE) -f $(DEVFILE) fclean
+	@$(MAKE) -C libft fclean
 
 getSources:
 	@rm -f make/sources.mk
