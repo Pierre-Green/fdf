@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/21 00:17:33 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:14:21 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "map.h"
 # include "ft_args.h"
 # include "ft_mlx/window.h"
+# include "ft_mlx/hooks.h"
+# include "dirwin.h"
 # include <sys/types.h>
 # include <dirent.h>
 # include <unistd.h>
@@ -33,9 +35,14 @@ typedef enum		e_mapmode
 {
 					SINGLE,
 					FOLDER,
-					NONE
+					UNDEFINED,
 }					t_mapmode;
 # define DIRMODE_FLAG "-d"
+
+typedef struct		s_state
+{
+	t_dirwin_state	*dirwin;
+}					t_state;
 
 typedef struct		s_fdf
 {
@@ -46,11 +53,18 @@ typedef struct		s_fdf
 	int				fd;
 	void			*mlx_ptr;
 	t_window		*windows;
+	t_state			*state;
 	size_t			window_count;
 }					t_fdf;
 
 t_ret				parse(t_fdf *fdf);
 
 void				assert(t_ret ret, const char *msg);
+
+t_ret					fdf_selection_window(t_fdf *fdf, t_window *dest);
+
+int						fdf_selection_window_render(void *fdf);
+
+char					**fdf_selection_get_files(t_fdf *fdf);
 
 #endif

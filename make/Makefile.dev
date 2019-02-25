@@ -6,12 +6,14 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 19:17:34 by pguthaus          #+#    #+#              #
-#    Updated: 2019/02/20 20:23:24 by pguthaus         ###   ########.fr        #
+#    Updated: 2019/02/21 18:10:32 by pierre           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Sources sets
 include make/sources.mk
+
+UNAME_S 		:=			$(shell uname)
 
 # Output name
 NAME			=			fdf_dev
@@ -31,7 +33,10 @@ FT_ARGS			=			libft/libft_dev.a
 
 # MLX
 MLX_INC			=			/usr/local/include
+MLX_ARGS		=			$(shell pkg-config --libs --static mlx) 
+ifeq ($(UNAME_S),Darwin)
 MLX_ARGS		=			-L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+endif
 
 # OBJS
 OBJS			=			$(addprefix $(OUTDIR),$(SRCS:.c=.o))

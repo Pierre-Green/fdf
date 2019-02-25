@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/21 00:54:36 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:17:08 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ static t_ret	initial_state(t_fdf **fdf)
 		return (RET_ERROR_INIT);
 	(*fdf)->mlx_ptr = mlx_init();
 	(*fdf)->params = NULL;
-	(*fdf)->mapmode = NONE;
+	(*fdf)->mapmode = UNDEFINED;
 	(*fdf)->windows = NULL;
 	(*fdf)->window_count = 0;
+	if (!((*fdf)->state = (t_state *)malloc(sizeof(t_state))))
+		return (RET_ERROR_INIT);
+	(*fdf)->state->dirwin = NULL;
 	return (RET_OK);
 }
 
@@ -77,19 +80,28 @@ static t_ret		render(t_fdf *fdf)
 {
 	size_t			curr;
 	t_window		*win;
+	t_hook_carry	**carries;
 
 	curr = 0;
 	win = fdf->windows;
+	if (!(carries = (t_hook_carry **)malloc(sizeof(*carries) * fdf->window_count)))
+		return (RET_ERROR_500);
 	while (curr < fdf->window_count)
 	{
+		if (!(*carries = (t_hook_carry *)malloc(sizeof(carries))))
+			return (RET_ERROR_500);
+		(*(carries + curr))->window = win;
+		(*(carries + curr))->state = fdf;
 		if (win->should_render_every_frame)
-			mlx_loop_hook(fdf->mlx_ptr, win->render, fdf);
-		mlx_key_hook(win->ptr, win->keypress, fdf);
-		mlx_hook(win->ptr, 2, 1l<<0, win->longkeypress, fdf);
-		mlx_mouse_hook(win->ptr, win->mouse, fdf);
+			mlx_expose_hook(fdf->mlx_ptr, win->render, fdf);
+		mlx_key_hook(win->ptr, keyboard_hooks_dispatcher, *carries);
+		mlx_hook(win->ptr, 2, 1l<<0, lkeyboard_hooks_dispatcher, *carries);
+		mlx_mouse_hook(win->ptr, mouse_hooks_dispatcher, *carries);
 		win = win->next;
 		curr++;
 	}
+	// SALE
+	fdf->windows->render(fdf);
 	mlx_loop(fdf->mlx_ptr);
 	return (RET_OK);
 }
