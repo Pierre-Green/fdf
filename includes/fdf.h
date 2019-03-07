@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/22 16:14:21 by pierre           ###   ########.fr       */
+/*   Updated: 2019/02/27 21:57:43 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ t_ret				parse(t_fdf *fdf);
 
 void				assert(t_ret ret, const char *msg);
 
-t_ret					fdf_selection_window(t_fdf *fdf, t_window *dest);
+t_ret				fdf_selection_window(t_fdf *fdf, t_window *dest);
 
-int						fdf_selection_window_render(void *fdf);
+int					fdf_selection_window_render(void *fdf);
 
-char					**fdf_selection_get_files(t_fdf *fdf);
+char				**fdf_selection_get_files(t_fdf *fdf);
+
+
 
 #endif

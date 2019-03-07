@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:23:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/22 15:55:52 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/07 03:03:31 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void					fdf_selection_window_state(t_fdf *fdf)
 	dstate = fdf->state->dirwin;
 	dstate->files = ft_get_dir_files(fdf->dir, "fdf", &dstate->items_count);
 	dstate->current_page = 0;
-	dstate->img_ptr = NULL;
+	dstate->carry = NULL;
 	dstate->container = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:22:05 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/22 15:55:41 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/07 03:03:07 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct			s_dirwin_state
 {
-	void				*img_ptr;
+	t_image_carry		*carry;
 	t_container			*container;
 	size_t				items_count;
 	size_t				current_page;
