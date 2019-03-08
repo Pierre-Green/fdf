@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/27 21:57:43 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/07 16:41:09 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "map.h"
 # include "ft_args.h"
 # include "ft_mlx/window.h"
-# include "ft_mlx/hooks.h"
 # include "dirwin.h"
 # include <sys/types.h>
 # include <dirent.h>
