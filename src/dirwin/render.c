@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:37:36 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/08 02:20:55 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/10 00:57:05 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,43 @@
 #include "ft_printf.h"
 #include "ft_str.h"
 
-static void	onclick()
+static void		onclick(int mouse, int target, void *state)
 {
-	ft_printf("Clicked \n");
+	t_fdf		*fdf;
+	size_t		selector;
+	t_dfiles	*node;
+
+	(void)mouse;
+	fdf = state;
+	selector = 0;
+	ft_printf("hey\n");
+	node = fdf->state->dirwin->files;
+	while (selector < (size_t)target)
+	{
+		node = node->next;
+		selector++;
+	}
+	fdf->map.name = node->file->d_name;
+	parse(fdf);
 }
 
 static t_pagination			*getpagination(t_fdf *fdf)
 {
 	t_pagination			*pagination;
-	char					c;
-	char					*str;
+	t_dfiles				*node;
+	t_button				*button;
+	size_t					current;
 
-	(void)fdf;
 	pagination = mlx_init_pagination(ft_zone2d_from_pdim(POS(0, 0), DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT - 100)), DIM(192, 108), (t_margin){10, 20, 10, 20});
-	c = 'A' - 1;
-	str = ft_strnew(1);
-	while (c <= 'Z')
+	current = 0;
+	node = fdf->state->dirwin->files;
+	while (current < fdf->state->dirwin->items_count && node)
 	{
-		str[0] = c;
-		pagination->add_child(pagination, ft_init_drawable(BUTTON, mlx_init_button(POS(0, 0), DIM(192, 108), 0x724F5B, str, onclick)));
-		c++;
+		button = mlx_init_button(POS(0, 0), DIM(192, 108), 0x724F5B, node->file->d_name, current);
+		button->onclick = onclick;
+		pagination->add_child(pagination, ft_init_drawable(BUTTON, button));
+		node = node->next;
+		current++;
 	}
 	return (pagination);
 }

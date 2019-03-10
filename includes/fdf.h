@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/07 16:41:09 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/10 00:59:59 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <unistd.h>
+# include "ft_printf.h"
 # include <fcntl.h>
 # include <mlx.h>
 
