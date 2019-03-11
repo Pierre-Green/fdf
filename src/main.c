@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/02/22 16:17:08 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/11 19:08:56 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,19 @@ static t_ret	initial_state(t_fdf **fdf)
 	(*fdf)->mlx_ptr = mlx_init();
 	(*fdf)->params = NULL;
 	(*fdf)->mapmode = UNDEFINED;
-	(*fdf)->windows = NULL;
+	(*fdf)->dirwin = NULL;
+	(*fdf)->window = NULL;
 	(*fdf)->window_count = 0;
 	if (!((*fdf)->state = (t_state *)malloc(sizeof(t_state))))
 		return (RET_ERROR_INIT);
+	if (!((*fdf)->map = (t_map *)malloc(sizeof(t_map))))
+		return (RET_ERROR_INIT);
+	(*fdf)->map->width = 0;
+	(*fdf)->map->depth = 0;
+	(*fdf)->map->name = NULL;
+	(*fdf)->map->vecs = NULL;
 	(*fdf)->state->dirwin = NULL;
+	(*fdf)->state->fdf = NULL;
 	return (RET_OK);
 }
 
@@ -78,30 +86,7 @@ static t_ret	parse_params(t_fdf *fdf, int ac, char **av, char **msg)
 
 static t_ret		render(t_fdf *fdf)
 {
-	size_t			curr;
-	t_window		*win;
-	t_hook_carry	**carries;
-
-	curr = 0;
-	win = fdf->windows;
-	if (!(carries = (t_hook_carry **)malloc(sizeof(*carries) * fdf->window_count)))
-		return (RET_ERROR_500);
-	while (curr < fdf->window_count)
-	{
-		if (!(*carries = (t_hook_carry *)malloc(sizeof(carries))))
-			return (RET_ERROR_500);
-		(*(carries + curr))->window = win;
-		(*(carries + curr))->state = fdf;
-		if (win->should_render_every_frame)
-			mlx_expose_hook(fdf->mlx_ptr, win->render, fdf);
-		mlx_key_hook(win->ptr, keyboard_hooks_dispatcher, *carries);
-		mlx_hook(win->ptr, 2, 1l<<0, lkeyboard_hooks_dispatcher, *carries);
-		mlx_mouse_hook(win->ptr, mouse_hooks_dispatcher, *carries);
-		win = win->next;
-		curr++;
-	}
-	// SALE
-	fdf->windows->render(fdf);
+	fdf->dirwin->render(fdf->dirwin, fdf);
 	mlx_loop(fdf->mlx_ptr);
 	return (RET_OK);
 }
@@ -113,15 +98,17 @@ int				main(int ac, char **av)
 
 	assert(initial_state(&fdf), "Initialization error !");
 	assert(parse_params(fdf, ac, av, &msg), msg);
-	if (!(fdf->windows = ft_init_window()))
-		assert(RET_ERROR_500, "Window initialization error");
 	fdf->window_count++;
 	if (fdf->mapmode == SINGLE)
 	{
 		// Parse
 	}
 	else if (fdf->mapmode == FOLDER)
-		assert(fdf_selection_window(fdf, fdf->windows), "Error creating selection window");
+	{
+		if (!(fdf->dirwin = ft_init_window(fdf->mlx_ptr, DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT), "Choisissez votre map", fdf)))
+			assert(RET_ERROR_500, "Window initialization error");
+		assert(fdf_selection_window(fdf, fdf->dirwin), "Error creating selection window");
+	}
 	else
 		assert(RET_ERROR_500, "WTF");
 	assert(render(fdf), "Render router error");

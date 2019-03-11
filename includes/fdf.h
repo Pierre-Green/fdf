@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/10 00:59:59 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/11 19:13:18 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,27 @@ typedef enum		e_mapmode
 }					t_mapmode;
 # define DIRMODE_FLAG "-d"
 
+typedef struct		s_fdf_state
+{
+
+}					t_fdf_state;
+
 typedef struct		s_state
 {
 	t_dirwin_state	*dirwin;
+	t_fdf_state		*fdf;
 }					t_state;
 
 typedef struct		s_fdf
 {
-	t_map			map;
+	t_map			*map;
 	t_params		*params;
 	t_mapmode		mapmode;
 	DIR				*dir;
 	int				fd;
 	void			*mlx_ptr;
-	t_window		*windows;
+	t_window		*window;
+	t_window		*dirwin;
 	t_state			*state;
 	size_t			window_count;
 }					t_fdf;
@@ -63,10 +70,12 @@ void				assert(t_ret ret, const char *msg);
 
 t_ret				fdf_selection_window(t_fdf *fdf, t_window *dest);
 
-int					fdf_selection_window_render(void *fdf);
+int					fdf_selection_window_render(t_window *win, void *s);
 
 char				**fdf_selection_get_files(t_fdf *fdf);
 
+t_ret				fdf_window_init(t_fdf *fdf, t_window *dest);
 
+int					fdf_window_render(t_window *win, void *s);
 
 #endif

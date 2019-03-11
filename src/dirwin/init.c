@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:23:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/07 03:03:31 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/11 19:00:50 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ static void					fdf_selection_window_state(t_fdf *fdf)
 
 t_ret						fdf_selection_window(t_fdf *fdf, t_window *dest)
 {
-	dest->next = NULL;
-	dest->width = DIRWIN_WIDTH;
-	dest->height = DIRWIN_HEIGHT;
-	dest->ptr = mlx_new_window(fdf->mlx_ptr, dest->width, dest->height, "Choisir sa map...");
 	dest->should_render_every_frame = false;
 	dest->render = fdf_selection_window_render;
 	if (!(fdf->state->dirwin = (t_dirwin_state *)malloc(sizeof(t_dirwin_state))))
