@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:37:36 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/11 19:59:31 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/12 18:29:50 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void		onclick(int mouse, int target, void *state)
 	(void)mouse;
 	fdf = state;
 	selector = 0;
-	ft_printf("hey\n");
 	node = fdf->state->dirwin->files;
 	while (selector < (size_t)target)
 	{
