@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:23:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 20:03:16 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 21:55:15 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ t_ret						fdf_selection_window(t_fdf *fdf, t_window *dest)
 	if (!(fdf->state->dirwin = fdf_selection_window_state(fdf)))
 		return (RET_ERROR_500);
 	dest->body = dirwin_layout(fdf);
-	dest->should_render_every_frame = false;
+	dest->should_render_every_frame = FALSE;
 	return (RET_OK);
 }

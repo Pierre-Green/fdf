@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 19:00:12 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 21:54:27 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void				assert(t_ret ret, const char *msg)
 	}
 }
 
-static t_ret	initial_state(t_fdf **fdf)
+static t_ret		initial_state(t_fdf **fdf)
 {
 	if (!(*fdf = (t_fdf *)malloc(sizeof(t_fdf))))
 		return (RET_ERROR_INIT);
@@ -50,10 +50,10 @@ static t_ret	initial_state(t_fdf **fdf)
 	return (RET_OK);
 }
 
-static t_ret	parse_params(t_fdf *fdf, int ac, char **av, char **msg)
+static t_ret		parse_params(t_fdf *fdf, int ac, char **av, char **msg)
 {
-	DIR			*dir;
-	int			fd;
+	DIR				*dir;
+	int				fd;
 
 	fdf->params = get_params(ac, av);
 	if (fdf->params->length == 2 && ft_strcmp(fdf->params->at(fdf->params, 0)->value, DIRMODE_FLAG) == 0)
@@ -91,10 +91,10 @@ static t_ret		render(t_fdf *fdf)
 	return (RET_OK);
 }
 
-int				main(int ac, char **av)
+int					main(int ac, char **av)
 {
-	t_fdf		*fdf;
-	char		*msg;
+	t_fdf			*fdf;
+	char			*msg;
 
 	assert(initial_state(&fdf), "Initialization error !");
 	assert(parse_params(fdf, ac, av, &msg), msg);
@@ -105,7 +105,7 @@ int				main(int ac, char **av)
 	}
 	else if (fdf->mapmode == FOLDER)
 	{
-		if (!(fdf->dirwin = ft_init_window(fdf->mlx_ptr, DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT), "Choisissez votre map", fdf, NULL)))
+		if (!(fdf->dirwin = ft_init_window(fdf->mlx_ptr, DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT), "Choisissez votre map", fdf)))
 			assert(RET_ERROR_500, "Window initialization error");
 		assert(fdf_selection_window(fdf, fdf->dirwin), "Error creating selection window");
 	}

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:22:29 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 20:03:33 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 21:55:24 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ t_ret					fdf_window_init(t_fdf *fdf, t_window *dest)
 	if (!(fdf->state->fdf = fdf_state(fdf)))
 		return (RET_ERROR_500);
 	dest->body = fdf_layout(fdf);
-	dest->should_render_every_frame = false;
+	dest->should_render_every_frame = FALSE;
 	return (RET_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 23:37:36 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 19:15:36 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 21:55:45 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static t_pagination			*getpagination(t_fdf *fdf)
 	node = fdf->state->dirwin->files;
 	while (current < fdf->state->dirwin->items_count && node)
 	{
-		button = mlx_init_button(POS(0, 0), DIM(192, 108), 0x724F5B, node->file->d_name, current);
+		button = mlx_init_button(POS(0, 0), DIM(192, 108), 0x724F5B, node->file->d_name);
+		button->uuid = current;
 		button->onclick = onclick;
 		pagination->add_child(pagination, ft_init_drawable(BUTTON, button));
 		node = node->next;
