@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/11 19:08:56 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:00:12 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_ret	parse_params(t_fdf *fdf, int ac, char **av, char **msg)
 
 static t_ret		render(t_fdf *fdf)
 {
-	fdf->dirwin->render(fdf->dirwin, fdf);
+	fdf->dirwin->render(fdf->dirwin);
 	mlx_loop(fdf->mlx_ptr);
 	return (RET_OK);
 }
@@ -105,7 +105,7 @@ int				main(int ac, char **av)
 	}
 	else if (fdf->mapmode == FOLDER)
 	{
-		if (!(fdf->dirwin = ft_init_window(fdf->mlx_ptr, DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT), "Choisissez votre map", fdf)))
+		if (!(fdf->dirwin = ft_init_window(fdf->mlx_ptr, DIM(DIRWIN_WIDTH, DIRWIN_HEIGHT), "Choisissez votre map", fdf, NULL)))
 			assert(RET_ERROR_500, "Window initialization error");
 		assert(fdf_selection_window(fdf, fdf->dirwin), "Error creating selection window");
 	}

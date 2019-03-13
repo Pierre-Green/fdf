@@ -6,27 +6,28 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:22:29 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/12 15:06:18 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 20:03:33 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "ft_mlx/window.h"
 
-static void					fdf_state(t_fdf *fdf)
+static t_fdf_state		*fdf_state(t_fdf *fdf)
 {
-	t_fdf_state				*state;
+	t_fdf_state			*state;
 
-	state = fdf->state->fdf;
-	state->body = NULL;
-	state->imgcarry = NULL;
+	(void)fdf;
+	if (!(state = (t_fdf_state *)malloc(sizeof(t_fdf_state))))
+		return (NULL);
+	return (state);
 }
 
-t_ret				fdf_window_init(t_fdf *fdf, t_window *dest)
+t_ret					fdf_window_init(t_fdf *fdf, t_window *dest)
 {
-	dest->render = fdf_window_render;
-	if (!(fdf->state->fdf = (t_fdf_state *)malloc(sizeof(t_fdf_state))))
+	if (!(fdf->state->fdf = fdf_state(fdf)))
 		return (RET_ERROR_500);
-	fdf_state(fdf);
+	dest->body = fdf_layout(fdf);
+	dest->should_render_every_frame = false;
 	return (RET_OK);
 }

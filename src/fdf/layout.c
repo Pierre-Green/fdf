@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   layout.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:34:28 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/12 18:25:59 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:04:24 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_container	*getlayout(t_fdf *fdf)
+t_container			*fdf_layout(t_fdf *fdf)
 {
 	t_container		*body;
 	t_container		*header;
@@ -25,19 +25,4 @@ static t_container	*getlayout(t_fdf *fdf)
 	body->add_child(body, ft_init_drawable(CONTAINER, header));
 	body->add_child(body, ft_init_drawable(CANVAS, canvas));
 	return (body);
-}
-
-int					fdf_window_render(t_window *win, void *s)
-{
-	
-	t_fdf					*fdf;
-	t_fdf_state			*fdf_state;
-
-	fdf = (t_fdf *)s;
-	mlx_clear_window(win->mlx, win->ptr);
-	fdf_state = fdf->state->fdf;
-	if (fdf_state->body == NULL)
-		fdf_state->body = getlayout(fdf);
-	fdf_state->imgcarry = fdf_state->body->render(fdf_state->body, win->mlx, win, fdf_state->imgcarry);
-	return (0);
 }

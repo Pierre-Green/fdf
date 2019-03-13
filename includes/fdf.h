@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/12 15:00:08 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:05:02 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,9 @@ char				**fdf_selection_get_files(t_fdf *fdf);
 t_ret				fdf_window_init(t_fdf *fdf, t_window *dest);
 
 int					fdf_window_render(t_window *win, void *s);
+
+t_container			*fdf_layout(t_fdf *fdf);
+
+t_container			*dirwin_layout(t_fdf *fdf);
 
 #endif

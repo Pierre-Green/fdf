@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:22:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/11 19:15:25 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:02:53 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static t_ret		parser_compute(t_fdf *fdf)
 		map->depth++;
 	}
 	free(buff);
-	fdf->window = ft_init_window(fdf->mlx_ptr, DIM(1500, 1000), fdf->map->name, fdf);
+	fdf->window = ft_init_window(fdf->mlx_ptr, DIM(1500, 1000), fdf->map->name, fdf, NULL);
 	fdf_window_init(fdf, fdf->window);
-	fdf->window->render(fdf->window, fdf);
+	fdf->window->render(fdf->window);
 	return (RET_OK);
 }
 
