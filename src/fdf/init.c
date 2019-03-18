@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:22:29 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 21:55:24 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/18 21:21:43 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_fdf_state		*fdf_state(t_fdf *fdf)
 	(void)fdf;
 	if (!(state = (t_fdf_state *)malloc(sizeof(t_fdf_state))))
 		return (NULL);
+	state->camera = mlx_init_camera(ft_init0_vec3_d());
 	return (state);
 }
 

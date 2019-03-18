@@ -71,12 +71,7 @@ t_ret				parse(t_fdf *fdf)
 	size_t			len;
 	size_t			tmp;
 
-	if (fdf->mapmode == SINGLE)
-	{
-		if ((fdf->fd = open(fdf->map->name, O_RDONLY)) < 0)
-			return (RET_ERROR_500);
-	}
-	else if (fdf->mapmode == FOLDER)
+	if (fdf->mapmode == FOLDER)
 	{
 		len = 0;
 		while (fdf->params->at(fdf->params, 1)->value[len])
@@ -92,7 +87,5 @@ t_ret				parse(t_fdf *fdf)
 		if ((fdf->fd = open(filename, O_RDONLY)) < 0)
 			return (RET_ERROR_500);
 	}
-	else
-		return (RET_ERROR_500);
 	return (parser_compute(fdf));
 }

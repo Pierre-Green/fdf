@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 19:05:02 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/18 21:20:40 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "map.h"
 # include "ft_args.h"
 # include "ft_mlx/window.h"
+# include "ft_mlx/camera.h"
 # include "dirwin.h"
 # include <sys/types.h>
 # include <dirent.h>
@@ -41,8 +42,7 @@ typedef enum		e_mapmode
 
 typedef struct		s_fdf_state
 {
-	t_container		*body;
-	t_image_carry	*imgcarry;
+	t_camera		*camera;
 }					t_fdf_state;
 
 typedef struct		s_state

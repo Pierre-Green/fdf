@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/15 14:07:50 by pierre           ###   ########.fr       */
+/*   Updated: 2019/03/18 21:37:48 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ static t_ret		parse_params(t_fdf *fdf, int ac, char **av, char **msg)
 	}
 	else if (fdf->params->length == 1)
 	{
-		if ((fd = open((char *)fdf->params->at(fdf->params, 0), O_RDONLY)) < 0)
+		if ((fd = open((char *)fdf->params->at(fdf->params, 0)->value, O_RDONLY)) < 0)
 		{
 			*msg = ft_strdup("Please use an existing file...");
 			return (RET_ERROR_ARGS);
 		}
+		fdf->map->name = fdf->params->at(fdf->params, 0)->value;
 		fdf->mapmode = SINGLE;
 		fdf->fd = fd;
 	}
@@ -86,8 +87,10 @@ static t_ret		parse_params(t_fdf *fdf, int ac, char **av, char **msg)
 
 static t_ret		render(t_fdf *fdf)
 {
-	if ((fdf->dirwin->render(fdf->dirwin)) == 1)
-		ft_printf("Window has no body...");
+	if (fdf->mapmode == FOLDER)
+		if ((fdf->dirwin->render(fdf->dirwin)) == 1)
+			ft_printf("Window has no body...");
+	fdf->window->render(fdf->window);
 	mlx_loop(fdf->mlx_ptr);
 	return (RET_OK);
 }
@@ -102,7 +105,7 @@ int					main(int ac, char **av)
 	fdf->window_count++;
 	if (fdf->mapmode == SINGLE)
 	{
-		// Parse
+		assert(parse(fdf), "Parsing error...");
 	}
 	else if (fdf->mapmode == FOLDER)
 	{
