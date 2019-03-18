@@ -6,7 +6,7 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 19:17:37 by pguthaus          #+#    #+#              #
-#    Updated: 2019/02/21 18:50:57 by pierre           ###   ########.fr        #
+#    Updated: 2019/03/15 14:16:08 by pierre           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ UNAME_S 		:=			$(shell uname)
 NAME			=			fdf
 
 # Compilation
-CC				=			gcc
+CC				=			clang
 CFLAGS			=			-Wall -Werror -Wextra
 
 # Paths
@@ -46,11 +46,11 @@ prod: $(NAME)
 re: fclean $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_ARGS) $(MLX_ARGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(FT_ARGS) $(MLX_ARGS) -o $(NAME)
 
 $(OUTDIR)%.o: $(SRCDIR)%.c
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
-	@$(CC) $(CFLAGS) -I $(INCDIR) -I $(FT_INC) -I $(MLX_INC) -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(INCDIR) -I $(FT_INC) -I $(MLX_INC) -o $@ -c $<
 
 clean:
 	@rm -rf $(OBJS)
