@@ -90,7 +90,8 @@ static t_ret		render(t_fdf *fdf)
 	if (fdf->mapmode == FOLDER)
 		if ((fdf->dirwin->render(fdf->dirwin)) == 1)
 			ft_printf("Window has no body...");
-	fdf->window->render(fdf->window);
+	if (fdf->window)
+		fdf->window->render(fdf->window);
 	mlx_loop(fdf->mlx_ptr);
 	return (RET_OK);
 }

@@ -42,7 +42,7 @@ t_container				*fdf_layout(t_fdf *fdf)
 	page = ft_init_container(POS(0, 0), DIM(fdf->window->width, fdf->window->height), 0xFFFFFF);
 	header = ft_init_container(POS(0, 0), DIM(fdf->window->width, 100), 0xFF0000);
 	body = ft_init_container(POS(0, 100), DIM(fdf->window->width, fdf->window->height - 100), 0xFF00FF);
-	canvas = mlx_init_canvas(POS(0, 0), DIM(fdf->window->width, fdf->window->height - 100), fdf->mlx_ptr);
+	canvas = mlx_init_canvas(POS(0, 0), DIM(fdf->window->width, fdf->window->height - 100));
 	canvas->s = fdf;
 	canvas->image = fdf_image;
 
