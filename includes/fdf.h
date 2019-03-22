@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/18 21:20:40 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:52:00 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "map.h"
 # include "ft_args.h"
 # include "ft_mlx/window.h"
+# include "ft_math/matrix.h"
+# include "ft_mlx/camera.h"
 # include "ft_mlx/camera.h"
 # include "dirwin.h"
 # include <sys/types.h>
@@ -82,5 +84,15 @@ int					fdf_window_render(t_window *win, void *s);
 t_container			*fdf_layout(t_fdf *fdf);
 
 t_container			*dirwin_layout(t_fdf *fdf);
+
+t_image_carry		*fdf_image(t_canvas *canvas, void *s, t_image_carry *carry);
+
+void				fdf_press_w(void *s);
+
+void				fdf_press_a(void *s);
+
+void				fdf_press_s(void *s);
+
+void				fdf_press_d(void *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:22:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/13 21:54:39 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/22 20:50:58 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,48 @@
 #include "get_next_line.h"
 #include "ft_utils.h"
 
-static t_ret		parse_line(t_map *map, char *line)
+static t_map		*add_vec(t_fdf *fdf, t_vec3_d vec)
 {
-	t_vec3_d		*vec;
+	t_map			*map;
+	size_t			curr;
+
+	if (fdf->map->len < fdf->map->capacity)
+	{
+		map = fdf->map;
+		map->vecs[map->len] = vec;
+		map->len++;
+	}
+	else
+	{
+		if (!(map = malloc(sizeof(t_map) + (sizeof(t_vec3_d)
+							* fdf->map->capacity << 1))))
+			return (NULL);
+		map->len = fdf->map->len;
+		map->capacity = fdf->map->capacity << 1;
+		map->name = fdf->map->name;
+		map->width = fdf->map->width;
+		map->depth = fdf->map->depth;
+		curr = 0;
+		while (curr < map->len)
+		{
+			map->vecs[curr] = fdf->map->vecs[curr];
+			curr++;
+		}
+		ft_memdel((void **)&fdf->map);
+		fdf->map = map;
+		add_vec(fdf, vec);
+	}
+	return (map);
+}
+
+static t_ret		parse_line(t_fdf *fdf, char *line)
+{
+	t_map			*map;
 	size_t			x;
 	int				y;
 
 	x = 0;
+	map = fdf->map;
 	while (*line)
 	{
 		if (*line != '-' && !ft_isdigit(*line))
@@ -28,16 +63,9 @@ static t_ret		parse_line(t_map *map, char *line)
 		y = ft_atoi_consume(&line);
 		if (*line != ' ')
 			return (RET_ERROR_PARSE);
-		if (!(vec = malloc(sizeof(t_vec3_d))))
-			return (RET_ERROR_500);
-		vec->y = y;
-		vec->x = x;
-		vec->z = map->depth;
-		if (!map->vecs)
-			map->vecs = ft_lstnew(vec, sizeof(vec));
-		else
-			ft_lstadd(&map->vecs, ft_lstnew(vec, sizeof(vec)));
-		line++;
+		fdf->map = add_vec(fdf, (t_vec3_d){x, y, map->depth});
+		while (*line && *line == ' ')
+			line++;
 		x++;
 	}
 	if (x < map->width || map->width == 0)
@@ -47,16 +75,14 @@ static t_ret		parse_line(t_map *map, char *line)
 
 static t_ret		parser_compute(t_fdf *fdf)
 {
-	t_map			*map;
 	int				gnl_res;
 	char			*buff;
 
-	map = fdf->map;
 	while ((gnl_res = get_next_line(fdf->fd, &buff)) > 0)
 	{
-		parse_line((t_map *)map, buff);
+		parse_line(fdf, buff);
 		free(buff);
-		map->depth++;
+		fdf->map->depth++;
 	}
 	free(buff);
 	fdf->window = ft_init_window(fdf->mlx_ptr, DIM(1500, 1000), fdf->map->name, fdf);

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:09:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/11 17:17:07 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:44:30 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 # define MAP_H
 # include <stdlib.h>
 # include "ft_math/vec.h"
-# include "ft_lst.h"
+# define FDF_MAP_INITIAL_CAPACITY 32
 
 typedef struct		s_map
 {
-	t_list			*vecs;
 	size_t			width;
 	size_t			depth;
+	size_t			len;
+	size_t			capacity;
 	char			*name;
+	t_vec3_d		vecs[];
 }					t_map;
 
 #endif

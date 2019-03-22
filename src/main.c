@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/18 21:37:48 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:47:10 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ static t_ret		initial_state(t_fdf **fdf)
 	(*fdf)->window_count = 0;
 	if (!((*fdf)->state = (t_state *)malloc(sizeof(t_state))))
 		return (RET_ERROR_INIT);
-	if (!((*fdf)->map = (t_map *)malloc(sizeof(t_map))))
+	if (!((*fdf)->map = (t_map *)malloc(sizeof(t_map)
+					+ (sizeof(t_vec3_d) * FDF_MAP_INITIAL_CAPACITY))))
 		return (RET_ERROR_INIT);
 	(*fdf)->map->width = 0;
 	(*fdf)->map->depth = 0;
+	(*fdf)->map->capacity = FDF_MAP_INITIAL_CAPACITY;
+	(*fdf)->map->len = 0;
 	(*fdf)->map->name = NULL;
-	(*fdf)->map->vecs = NULL;
 	(*fdf)->state->dirwin = NULL;
 	(*fdf)->state->fdf = NULL;
 	return (RET_OK);
