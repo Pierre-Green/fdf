@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/22 19:52:00 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/03/25 19:37:30 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum		e_mapmode
 typedef struct		s_fdf_state
 {
 	t_camera		*camera;
+	t_matrix44_d	proj;
 }					t_fdf_state;
 
 typedef struct		s_state

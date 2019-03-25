@@ -6,12 +6,13 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 19:17:34 by pguthaus          #+#    #+#              #
-#    Updated: 2019/03/15 13:56:49 by pierre           ###   ########.fr        #
+#    Updated: 2019/03/25 16:21:02 by pguthaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Sources sets
-include make/sources.mk
+-include make/sources.mk
+-include libft/make/srcs.mk
 
 UNAME_S 		:=			$(shell uname)
 
@@ -29,7 +30,6 @@ OUTDIR			=			./objs/dev/
 
 # Libft
 FT_INC			=			libft/includes
-FT_ARGS			=			libft/libft_dev.a
 
 # MLX
 MLX_INC			=			/usr/local/include
@@ -40,13 +40,14 @@ endif
 
 # OBJS
 OBJS			=			$(addprefix $(OUTDIR),$(SRCS:.c=.o))
+FT_OBJS			=			$(addprefix ./libft/objs/dev/,$(FT_SRCS:.c=.o))
 
 dev: $(NAME)
 
 re: fclean $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_ARGS) $(MLX_ARGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_OBJS) $(MLX_ARGS) -o $(NAME)
 
 $(OUTDIR)%.o: $(SRCDIR)%.c
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi

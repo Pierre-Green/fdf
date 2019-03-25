@@ -6,12 +6,12 @@
 #    By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/18 19:17:37 by pguthaus          #+#    #+#              #
-#    Updated: 2019/03/15 14:16:08 by pierre           ###   ########.fr        #
+#    Updated: 2019/03/25 16:19:16 by pguthaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Sources sets
-include make/sources.mk
+-include make/sources.mk
 
 UNAME_S 		:=			$(shell uname)
 
