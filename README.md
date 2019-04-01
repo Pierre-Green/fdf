@@ -5,4 +5,4 @@
 `make`
 
 2: Enjoy
-`./fdf [-d 'directory']`
+`./fdf [-d 'directory' || 'fdf_file']`
