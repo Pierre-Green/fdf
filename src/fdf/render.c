@@ -50,6 +50,8 @@ static void				draw_vecs(t_canvas *canvas, t_fdf *fdf, t_fdf_state *state)
 	y = 0;
 	printf("cam yaw: %f pitch: %f\n", state->camera->yaw, state->camera->pitch);
 	ft_vec3_d_debug(state->camera->position, "Camera position");
+	ft_vec3_d_debug(state->camera->vec_front, "Vec front");
+	ft_vec3_d_debug(state->camera->vec_right, "Vec right");
 	ft_mat44d_debug(state->proj, "Projection mat");
 	ft_mat44d_debug(state->camera->view_mat, "Camera mat");
 	while (y < map->depth)
