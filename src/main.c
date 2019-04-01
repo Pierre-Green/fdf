@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/22 18:47:10 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:12:09 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int					main(int ac, char **av)
 
 	assert(initial_state(&fdf), "Initialization error !");
 	assert(parse_params(fdf, ac, av, &msg), msg);
+	assert(load_themes(fdf), "Theme loading error");
 	fdf->window_count++;
 	if (fdf->mapmode == SINGLE)
 	{

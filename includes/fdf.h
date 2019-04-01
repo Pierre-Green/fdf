@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/25 19:37:30 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:15:38 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@
 # include "ft_printf.h"
 # include <fcntl.h>
 # include <mlx.h>
-
-typedef int			t_ret;
 # define RET_OK 0
 # define RET_ERROR_PARSE -1
 # define RET_ERROR_INIT -2
 # define RET_ERROR_ARGS -3
 # define RET_ERROR_USAGE -4
 # define RET_ERROR_500 500
+# define DIRMODE_FLAG "-d"
+# define THEMES_DIR "themes"
+# define THEMES_EXT "theme"
+
+typedef int			t_ret;
 
 typedef enum		e_mapmode
 {
@@ -40,12 +43,26 @@ typedef enum		e_mapmode
 					FOLDER,
 					UNDEFINED,
 }					t_mapmode;
-# define DIRMODE_FLAG "-d"
+
+typedef struct		s_theme
+{
+	t_color			background_color;
+	t_color			line_color;
+}					t_theme;
+
+typedef struct		s_themes
+{
+	size_t			len;
+	t_theme			themes[];
+}					t_themes;
 
 typedef struct		s_fdf_state
 {
 	t_camera		*camera;
 	t_matrix44_d	proj;
+	t_point2d		last;
+	t_bool			motion_focus;
+	t_theme			theme;
 }					t_fdf_state;
 
 typedef struct		s_state
@@ -64,6 +81,7 @@ typedef struct		s_fdf
 	void			*mlx_ptr;
 	t_window		*window;
 	t_window		*dirwin;
+	t_themes		*themes;
 	t_state			*state;
 	size_t			window_count;
 }					t_fdf;
@@ -95,5 +113,19 @@ void				fdf_press_a(void *s);
 void				fdf_press_s(void *s);
 
 void				fdf_press_d(void *s);
+
+void				fdf_press_arrow_left(void *s);
+
+void				fdf_press_arrow_up(void *s);
+
+void				fdf_press_arrow_right(void *s);
+
+void				fdf_press_arrow_down(void *s);
+
+void				fdf_motion(int x, int y, void *s);
+
+void				fdf_click(t_mouse_btn btn, int id, void *s);
+
+t_ret				load_themes(t_fdf *fdf);
 
 #endif

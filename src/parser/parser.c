@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:22:48 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/25 17:25:34 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/01 19:03:11 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_ret		parse_line(t_fdf *fdf, char *line)
 		if (*line != '-' && !ft_isdigit(*line))
 			return (RET_ERROR_PARSE);
 		y = ft_atoi_consume(&line);
-		fdf->map = add_vec(fdf, (t_vec3_d){x, y, map->depth + 1});
+		fdf->map = add_vec(fdf, (t_vec3_d){x, y, map->depth});
 		while (*line && *line == ' ')
 			line++;
 		x++;
