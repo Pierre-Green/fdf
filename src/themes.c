@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:46:36 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/01 20:51:45 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/01 21:29:12 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static t_ret	set_name(char **dest, char *name, size_t name_len)
 static void		parse_cfg(char *key, char *value, t_theme *dest)
 {
 	if (ft_strcmp(key, "BACKGROUND") == 0)
-		dest->background_color = 0x000000;
-	if (ft_strcmp(key, "LINE"))
-		dest->line_color = 0xFFFFFF;
+		dest->background_color = ft_int_from_hexstr(value);
+	if (ft_strcmp(key, "LINES") == 0)
+		dest->line_color = ft_int_from_hexstr(value);
 }
 
 static void		split(char *value, char **key, char **p_value)
