@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 18:20:18 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/01 19:28:36 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:54:09 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ t_image_carry			*fdf_image(t_canvas *canvas, void *s, t_image_carry *carry)
 	t_fdf_state			*state;
 
 	state = fdf->state->fdf;
-	state->camera->update(state->camera);
 	add_hooks(canvas, s);
-	canvas->background_color = state->theme.background_color;
-	state->proj = ft_perspective_matrix44_d(ft_degrees_to_radian(90), 0.1, 100);
+	state->proj = ft_perspective_matrix44_d(ft_degrees_to_radian(90), 1, 10);
+	state->proj = ft_multiply_matrix44_d(state->proj, ft_rotation_matrix44_d_y(180));
 	draw_vecs(canvas, (t_fdf *)fdf, state);
 	return (carry);
 }

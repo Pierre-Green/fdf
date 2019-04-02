@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/01 20:15:38 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:45:57 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum		e_mapmode
 
 typedef struct		s_theme
 {
-	t_color			background_color;
+	t_color			canvas_color;
+	t_color			ui_background;
 	t_color			line_color;
 }					t_theme;
 
