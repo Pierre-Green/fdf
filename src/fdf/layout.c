@@ -6,17 +6,22 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:34:28 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 18:49:32 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:57:27 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "ft_str.h"
 
 static t_container		*header(t_fdf *fdf, t_theme theme)
 {
 	t_container			*header;
+	t_text				*title;
 
 	header = ft_init_container(POS(0, 0), DIM(fdf->window->width, 100), theme.ui_background);
+	title = ft_init_text(POS(fdf->window->width / 2, 50), ft_strjoin("FDF - ", fdf->map->name), theme.text_color);
+	title->align = CENTER;
+	header->add_child(header, ft_init_drawable(TEXT, title));
 	return (header);
 }
 
@@ -39,6 +44,12 @@ static t_container		*footer(t_fdf *fdf, t_theme theme)
 	t_container			*footer;
 
 	footer = ft_init_container(POS(0, fdf->window->height - 100), DIM(fdf->window->width, 100), theme.ui_background);
+	footer->add_child(footer, ft_init_drawable(TEXT,
+				ft_init_text(POS(10, 20), "MOVE: W/A/S/D", theme.text_color)));
+	footer->add_child(footer, ft_init_drawable(TEXT,
+				ft_init_text(POS(10, 60), "RANDOM THEME: T", theme.text_color)));
+	footer->add_child(footer, ft_init_drawable(TEXT,
+				ft_init_text(POS(200, 20), "Rotate camera: arrows", theme.text_color)));
 	return (footer);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:22:29 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 18:50:13 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:19:13 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static t_fdf_state		*fdf_state(t_fdf *fdf)
 	state->last = POS(-42, -42);
 	state->motion_focus = FALSE;
 	state->theme = fdf->themes->themes[0];
+	state->selected_theme = 0;
 	return (state);
 }
 

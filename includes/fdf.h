@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 18:45:57 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:55:06 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_theme
 	t_color			canvas_color;
 	t_color			ui_background;
 	t_color			line_color;
+	t_color			text_color;
 }					t_theme;
 
 typedef struct		s_themes
@@ -64,6 +65,7 @@ typedef struct		s_fdf_state
 	t_point2d		last;
 	t_bool			motion_focus;
 	t_theme			theme;
+	size_t			selected_theme;
 }					t_fdf_state;
 
 typedef struct		s_state
@@ -114,6 +116,8 @@ void				fdf_press_a(void *s);
 void				fdf_press_s(void *s);
 
 void				fdf_press_d(void *s);
+
+void				fdf_press_t(void *s);
 
 void				fdf_press_arrow_left(void *s);
 

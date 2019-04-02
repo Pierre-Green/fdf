@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:46:36 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 18:52:40 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:56:37 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void		parse_cfg(char *key, char *value, t_theme *dest)
 		dest->ui_background = ft_int_from_hexstr(value);
 	else if (ft_strcmp(key, "LINE_COLOR") == 0)
 		dest->line_color = ft_int_from_hexstr(value);
+	else if (ft_strcmp(key, "UI_COLOR") == 0)
+		dest->text_color = ft_int_from_hexstr(value);
 }
 
 static void		split(char *value, char **key, char **p_value)
@@ -109,5 +111,6 @@ t_ret			load_themes(t_fdf *fdf)
 		files = files->next;
 		current++;
 	}
+	fdf->themes->len = current;
 	return (RET_OK);
 }

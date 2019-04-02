@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 18:20:18 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 18:54:09 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/02 21:11:59 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static t_ret			vec2pos(t_vec3_d vec, t_fdf_state *state, t_dim2d dims, t_point2d
 {
 	vec = ft_vec3_d_matmut(vec, state->camera->view_mat);
 	vec = ft_vec3_d_matmut(vec, state->proj);
+	if (vec.z > state->camera->position.z)
+		return (RET_ERROR_500);
 	out->x = (vec.x + (dims.width / 2));
 	out->y = (vec.y + (dims.height / 2));
 	return (RET_OK);
@@ -76,6 +78,7 @@ static void				add_hooks(t_canvas *canvas, void *s)
 	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_UP, fdf_press_arrow_up, s);
 	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_RIGHT, fdf_press_arrow_right, s);
 	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_DOWN, fdf_press_arrow_down, s);
+	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_T, fdf_press_t, s);
 	// canvas->mouse_hooks->add(canvas->mouse_hooks, 0, canvas->zone, fdf_click, s);
 	// canvas->motion_hooks->add(canvas->motion_hooks, canvas->zone, fdf_motion, s);
 }
@@ -88,7 +91,6 @@ t_image_carry			*fdf_image(t_canvas *canvas, void *s, t_image_carry *carry)
 	state = fdf->state->fdf;
 	add_hooks(canvas, s);
 	state->proj = ft_perspective_matrix44_d(ft_degrees_to_radian(90), 1, 10);
-	state->proj = ft_multiply_matrix44_d(state->proj, ft_rotation_matrix44_d_y(180));
 	draw_vecs(canvas, (t_fdf *)fdf, state);
 	return (carry);
 }
