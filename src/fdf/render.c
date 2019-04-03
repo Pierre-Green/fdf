@@ -6,91 +6,49 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 18:20:18 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 21:11:59 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:40:04 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <sys/param.h>
 
-static t_ret			vec2pos(t_vec3_d vec, t_fdf_state *state, t_dim2d dims, t_point2d *out)
+static t_bool			vec3d_2_vec2d(t_fdf *fdf, t_canvas *canvas, t_vec3_d vec, t_vec3_d *dest)
 {
-	vec = ft_vec3_d_matmut(vec, state->camera->view_mat);
-	vec = ft_vec3_d_matmut(vec, state->proj);
-	if (vec.z > state->camera->position.z)
-		return (RET_ERROR_500);
-	out->x = (vec.x + (dims.width / 2));
-	out->y = (vec.y + (dims.height / 2));
-	return (RET_OK);
+	(void)canvas;
+	*dest = vec;
+	return (TRUE);
 }
 
-static void				draw_vec(t_canvas *canvas, t_map *map, t_fdf_state *state, t_point2d pos)
+static void				compute_pos(t_fdf *fdf, t_point2d at, t_canvas *canvas)
 {
-	t_point2d			from;
-	t_point2d			to;
+	t_vec3_d			from;
+	t_vec3_d			to;
+	size_t				i;
 
-	if (RET_ERROR_500 == (vec2pos(map->vecs[pos.x + (pos.y * map->width)], state, canvas->zone.dim, &from)))
+	i = (at.y * fdf->map->width) + at.x;
+	if (!(vec3d_2_vec2d(fdf, canvas, fdf->map->vecs[i], &from)))
 		return ;
-	if (pos.x < (int)map->width - 1)
-	{
-		vec2pos(map->vecs[pos.x + 1 + (pos.y * map->width)], state, canvas->zone.dim, &to);
-		mlx_canvas_draw_line(canvas, from, to, state->theme.line_color);
-	}
-	if (pos.y < (int)map->depth - 1)
-	{
-		vec2pos(map->vecs[pos.x + ((pos.y + 1) * map->width)], state, canvas->zone.dim, &to);
-		mlx_canvas_draw_line(canvas, from, to, state->theme.line_color);
-	}
-}
-
-static void				draw_vecs(t_canvas *canvas, t_fdf *fdf, t_fdf_state *state)
-{
-	size_t				x;
-	size_t				y;
-	const t_map			*map = fdf->map;
-
-	y = 0;
-	printf("cam yaw: %f pitch: %f\n", state->camera->yaw, state->camera->pitch);
-	ft_vec3_d_debug(state->camera->position, "Camera position");
-	ft_vec3_d_debug(state->camera->vec_front, "Vec front");
-	ft_vec3_d_debug(state->camera->vec_right, "Vec right");
-	ft_mat44d_debug(state->proj, "Projection mat");
-	ft_mat44d_debug(state->camera->view_mat, "Camera mat");
-	while (y < map->depth)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			draw_vec(canvas, (t_map *)map, state, POS(x, y));
-			x++;
-		}
-		y++;
-	}
-}
-
-static void				add_hooks(t_canvas *canvas, void *s)
-{
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_W, fdf_press_w, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_A, fdf_press_a, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_S, fdf_press_s, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_D, fdf_press_d, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_LEFT, fdf_press_arrow_left, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_UP, fdf_press_arrow_up, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_RIGHT, fdf_press_arrow_right, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_ARROW_DOWN, fdf_press_arrow_down, s);
-	canvas->keyboard_hooks->add(canvas->keyboard_hooks, KEY_T, fdf_press_t, s);
-	// canvas->mouse_hooks->add(canvas->mouse_hooks, 0, canvas->zone, fdf_click, s);
-	// canvas->motion_hooks->add(canvas->motion_hooks, canvas->zone, fdf_motion, s);
+	if ((at.x + 1 < (int)fdf->map->width) && (vec3d_2_vec2d(fdf, canvas, fdf->map->vecs[i + 1], &to)))
+		mlx_canvas_draw_line(canvas, POS(from.x, from.y), POS(to.x, to.y), fdf->state->fdf->theme.line_color);
+	if ((at.y + 1 < (int)fdf->map->depth) && (vec3d_2_vec2d(fdf, canvas, fdf->map->vecs[i + fdf->map->width], &to)))
+		mlx_canvas_draw_line(canvas, POS(from.x, from.y), POS(to.x, to.y), fdf->state->fdf->theme.line_color);
 }
 
 t_image_carry			*fdf_image(t_canvas *canvas, void *s, t_image_carry *carry)
 {
 	const t_fdf			*fdf = s;
 	t_fdf_state			*state;
+	t_point2d			pos;
 
 	state = fdf->state->fdf;
 	add_hooks(canvas, s);
-	state->proj = ft_perspective_matrix44_d(ft_degrees_to_radian(90), 1, 10);
-	draw_vecs(canvas, (t_fdf *)fdf, state);
+	pos = POS(-1, -1);
+	while (++pos.y < (int)fdf->map->depth)
+	{
+		pos.x = -1;
+		while (++pos.x < (int)fdf->map->width)
+			compute_pos((t_fdf *)fdf, pos, canvas);
+	}
 	return (carry);
 }

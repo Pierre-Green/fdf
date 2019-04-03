@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/02 19:55:06 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/03 18:50:12 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct		s_themes
 typedef struct		s_fdf_state
 {
 	t_camera		*camera;
-	t_matrix44_d	proj;
+	t_matrix44_d	mat_pofin;
 	t_point2d		last;
 	t_bool			motion_focus;
 	t_theme			theme;
@@ -130,6 +130,8 @@ void				fdf_press_arrow_down(void *s);
 void				fdf_motion(int x, int y, void *s);
 
 void				fdf_click(t_mouse_btn btn, int id, void *s);
+
+void				add_hooks(t_canvas *canvas, void *s);
 
 t_ret				load_themes(t_fdf *fdf);
 
