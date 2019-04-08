@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 19:45:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/01 20:12:09 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:47:08 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_ret		initial_state(t_fdf **fdf)
 		return (RET_ERROR_INIT);
 	(*fdf)->map->width = 0;
 	(*fdf)->map->depth = 0;
+	(*fdf)->map->height = 0;
 	(*fdf)->map->capacity = FDF_MAP_INITIAL_CAPACITY;
 	(*fdf)->map->len = 0;
 	(*fdf)->map->name = NULL;
@@ -122,4 +123,3 @@ int					main(int ac, char **av)
 	assert(render(fdf), "Render router error");
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 18:20:18 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/08 18:26:53 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:53:11 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static t_bool			vec3d_2_vec2d(t_fdf *fdf, t_canvas *canvas, t_vec3_d vec, t_vec3_d *dest)
 {
-	vec.y *= -0.5;
+	vec.y *= 0.5;
 	vec = ft_vec3_d_matmut(vec, fdf->state->fdf->camera->view_mat);
 	*dest = (t_vec3_d){
 		(vec.x + 1) * 0.5 * canvas->zone.dim.width,

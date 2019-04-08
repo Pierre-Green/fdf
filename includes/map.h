@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:09:06 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/22 18:44:30 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:41:57 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct		s_map
 {
 	size_t			width;
 	size_t			depth;
+	size_t			height;
 	size_t			len;
 	size_t			capacity;
 	char			*name;
