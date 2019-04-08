@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 18:20:18 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/03 20:40:04 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/08 18:26:53 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,13 @@
 
 static t_bool			vec3d_2_vec2d(t_fdf *fdf, t_canvas *canvas, t_vec3_d vec, t_vec3_d *dest)
 {
-	(void)canvas;
-	*dest = vec;
+	vec.y *= -0.5;
+	vec = ft_vec3_d_matmut(vec, fdf->state->fdf->camera->view_mat);
+	*dest = (t_vec3_d){
+		(vec.x + 1) * 0.5 * canvas->zone.dim.width,
+		(1 - (vec.y + 1) * 0.5) * canvas->zone.dim.height,
+		1
+	};
 	return (TRUE);
 }
 
@@ -43,6 +48,8 @@ t_image_carry			*fdf_image(t_canvas *canvas, void *s, t_image_carry *carry)
 
 	state = fdf->state->fdf;
 	add_hooks(canvas, s);
+	ft_vec3_d_debug(state->camera->position, "Cam position:");
+	ft_vec3_d_debug(state->camera->rotation, "Cam rotation:");
 	pos = POS(-1, -1);
 	while (++pos.y < (int)fdf->map->depth)
 	{

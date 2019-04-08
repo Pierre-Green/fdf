@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:43:52 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/03/22 19:48:15 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:13:09 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				fdf_press_w(void *s)
 {
 	const t_fdf		*fdf = s;
 	t_camera		*cam;
-	
+
 	cam =fdf->state->fdf->camera;
 	mlx_camera_move(cam, FORWARD);
 }
