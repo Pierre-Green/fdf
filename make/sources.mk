@@ -1,3 +1,6 @@
+SRCS+=/config/init.c
+SRCS+=/config/layout.c
+SRCS+=/config/theme.c
 SRCS+=/dirwin/init.c
 SRCS+=/dirwin/layout.c
 SRCS+=/fdf/hooks/init.c

@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:22:29 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/08 19:43:53 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/09 15:49:11 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void				fdf_normalize_map(t_fdf *fdf)
 t_ret					fdf_window_init(t_fdf *fdf, t_window *dest)
 {
 	if (!(fdf->state->fdf = fdf_state(fdf)))
+		return (RET_ERROR_500);
+	if (fdf_init_config(fdf) == RET_ERROR_500)
 		return (RET_ERROR_500);
 	fdf_normalize_map(fdf);
 	dest->body = fdf_layout(fdf);

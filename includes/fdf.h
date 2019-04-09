@@ -6,7 +6,7 @@
 /*   By: pguthaus <pguthaus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 21:08:21 by pguthaus          #+#    #+#             */
-/*   Updated: 2019/04/03 18:50:12 by pguthaus         ###   ########.fr       */
+/*   Updated: 2019/04/09 18:29:55 by pguthaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "dirwin.h"
 # include <sys/types.h>
 # include <dirent.h>
+# include "config.h"
 # include <unistd.h>
 # include "ft_printf.h"
 # include <fcntl.h>
@@ -72,6 +73,7 @@ typedef struct		s_state
 {
 	t_dirwin_state	*dirwin;
 	t_fdf_state		*fdf;
+	t_config_state	*config;
 }					t_state;
 
 typedef struct		s_fdf
@@ -134,5 +136,13 @@ void				fdf_click(t_mouse_btn btn, int id, void *s);
 void				add_hooks(t_canvas *canvas, void *s);
 
 t_ret				load_themes(t_fdf *fdf);
+
+t_ret				fdf_init_config(t_fdf *fdf);
+
+t_container			*fdf_config_layout(t_fdf *fdf);
+
+void				fdf_next_theme(t_fdf *fdf);
+
+void				fdf_prev_theme(t_fdf *fdf);
 
 #endif
